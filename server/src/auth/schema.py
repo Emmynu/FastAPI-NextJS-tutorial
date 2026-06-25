@@ -29,7 +29,7 @@ class UserModel(BaseModel):
     password:str = Field(exclude=True)
     createdAt: datetime 
     updtedAt: datetime 
-    posts: List[PostModel]
+    post: List[PostModel]
     reviews: List[ReviewsModel]
 
 class EmailsModel(BaseModel):
