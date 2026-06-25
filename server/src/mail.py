@@ -5,6 +5,13 @@ from pathlib import Path
 
 BASE_URL = Path(__file__).resolve().parent
 
+TEMPLATE_FOLDER = BASE_URL / "templates"
+
+if not TEMPLATE_FOLDER.exists():
+    TEMPLATE_FOLDER.mkdir(parents=True, exist_ok=True)
+
+
+
 mail_config = ConnectionConfig(
     MAIL_USERNAME = config.MAIL_USERNAME, 
     MAIL_PASSWORD = config.MAIL_PASSWORD , 
@@ -15,8 +22,7 @@ mail_config = ConnectionConfig(
     MAIL_FROM = config.MAIL_FROM, 
     MAIL_FROM_NAME = config.MAIL_FROM_NAME, 
     VALIDATE_CERTS = config.VALIDATE_CERTS,
-    TEMPLATE_FOLDER = Path(BASE_URL, "templates"), 
-
+    TEMPLATE_FOLDER = TEMPLATE_FOLDER, 
 )
 
 mail = FastMail(
