@@ -22,7 +22,7 @@ class Users(SQLModel, table=True):
     lastName:str
     password:str = Field(exclude=True)
 
-    posts: List["Post"] = Relationship(back_populates="user", sa_relationship_kwargs={"lazy": "selectin"})
+    post: List["Post"] = Relationship(back_populates="user", sa_relationship_kwargs={"lazy": "selectin"})
     reviews: List["Reviews"] = Relationship(back_populates="user", sa_relationship_kwargs={"lazy": "selectin"})
     createdAt: datetime = Field(
         sa_column=Column(
@@ -55,11 +55,13 @@ class Post(SQLModel, table=True):
         )
     )
     userId:uuid.UUID = Field(default=None, foreign_key="Users.uid")
-    user: Optional["Users"] = Relationship(back_populates="posts", sa_relationship_kwargs={"lazy": "selectin"})
-    reviews: List["Reviews"] = Relationship(back_populates="posts", sa_relationship_kwargs={"lazy": "selectin"})
+    user: Optional["Users"] = Relationship(back_populates="post", sa_relationship_kwargs={"lazy": "selectin"})
+    reviews: List["Reviews"] = Relationship(back_populates="post", sa_relationship_kwargs={"lazy": "selectin"})
 
     title:str
     body:str
+
+    # test:str
     
     createdAt:datetime = Field(
         sa_column=Column(pg.TIMESTAMP, default=datetime.now())
@@ -91,7 +93,7 @@ class Reviews(SQLModel, table= True):
     rating: int = Field(lt=5)
 
     user: Optional["Users"] =  Relationship(back_populates="reviews", sa_relationship_kwargs={"lazy": "selectin"})
-    posts: Optional["Post"] =  Relationship(back_populates="reviews", sa_relationship_kwargs={"lazy": "selectin"})
+    post: Optional["Post"] =  Relationship(back_populates="reviews", sa_relationship_kwargs={"lazy": "selectin"})
     createdAt: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now()))
     updatedAt: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now()))
 

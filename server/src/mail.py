@@ -7,10 +7,6 @@ BASE_URL = Path(__file__).resolve().parent
 
 TEMPLATE_FOLDER = BASE_URL / "templates"
 
-if not TEMPLATE_FOLDER.exists():
-    TEMPLATE_FOLDER.mkdir(parents=True, exist_ok=True)
-
-
 
 mail_config = ConnectionConfig(
     MAIL_USERNAME = config.MAIL_USERNAME, 
