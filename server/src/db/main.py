@@ -1,7 +1,7 @@
 from sqlmodel import create_engine, SQLModel
 from sqlalchemy.ext.asyncio import AsyncEngine
 from src.config import config
-from src.db.models import Post
+from  src.db.models import Users, Post, Reviews
 from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlalchemy.orm import sessionmaker
 
@@ -16,7 +16,7 @@ engine = AsyncEngine(
 # create a conn to our db
 async def initDB():
     async with engine.begin() as conn:
-        Post
+        Users, Post, Reviews
         await conn.run_sync(SQLModel.metadata.create_all)
 
 
