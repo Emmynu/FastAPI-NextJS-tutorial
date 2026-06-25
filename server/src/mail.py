@@ -1,11 +1,11 @@
 from fastapi_mail import FastMail, ConnectionConfig, MessageSchema, MessageType
 from src.config import config
-from pathlib import Path
+# from pathlib import Path
 # from typing import List
 
-BASE_URL = Path(__file__).resolve().parent
+# BASE_URL = Path(__file__).resolve().parent
 
-TEMPLATE_FOLDER = BASE_URL / "templates"
+# TEMPLATE_FOLDER = BASE_URL / "templates"
 
 
 mail_config = ConnectionConfig(
@@ -18,7 +18,7 @@ mail_config = ConnectionConfig(
     MAIL_FROM = config.MAIL_FROM, 
     MAIL_FROM_NAME = config.MAIL_FROM_NAME, 
     VALIDATE_CERTS = config.VALIDATE_CERTS,
-    TEMPLATE_FOLDER = TEMPLATE_FOLDER, 
+    # TEMPLATE_FOLDER = TEMPLATE_FOLDER, 
 )
 
 mail = FastMail(
