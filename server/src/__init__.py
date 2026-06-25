@@ -34,7 +34,7 @@ app.include_router(reviewRouter, prefix="/api/{version}/reviews", tags=["Reviews
 
 app.add_middleware(
     CORSMiddleware,
-        allow_origins= ["http://localhost:3000"],
+        allow_origins= ["http://localhost:3000", "https://fast-api-next-js-tutorial.vercel.app/"],
         allow_headers=["*"],
         allow_methods=["*"],
         allow_credentials=True
