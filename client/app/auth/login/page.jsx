@@ -14,13 +14,16 @@ export default function Login() {
 
     
         const response = await login(data)
+
+        console.log(response);
         
-        if (response?.status === 200){
-           showToast({ type: "success", title: response?.data?.msg, msg: `Welcome back ${response?.data?.user?.username}!`})
-           router.push("/posts")
-        }else{
-            showToast({ type: "error", title: "Failed to login" , msg:response?.error})
-        }
+        
+        // if (response?.status === 200){
+        //    showToast({ type: "success", title: response?.data?.msg, msg: `Welcome back ${response?.data?.user?.username}!`})
+        //    router.push("/posts")
+        // }else{
+        //     showToast({ type: "error", title: "Failed to login" , msg:response?.error})
+        // }
         
     }
 

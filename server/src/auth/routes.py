@@ -73,9 +73,9 @@ async def login(loginData:UserLoginModel,  response:Response, session: AsyncSess
                 key="accessToken",
                 value=accessToken,
                 httponly=True,
-                samesite="lax",
+                samesite="none",
                 path="/",
-                secure=False,  #Todo: set True before deployment
+                secure=True,  #Todo: set True before deployment
                 max_age=3600,
                 # domain="http://localhost:3000/"
             )
@@ -84,9 +84,9 @@ async def login(loginData:UserLoginModel,  response:Response, session: AsyncSess
                 key="refreshToken",
                 value=refreshToken,
                 httponly=True,
-                samesite="lax",
+                samesite="none",
                 path="/",
-                secure=False,  #Todo: set True before deployment
+                secure=True,  #Todo: set True before deployment
                 max_age=3600,
                 # domain="http://localhost:3000/"
             )

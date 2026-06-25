@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: "http://localhost:8000/api/v1/",
+    baseURL: "https://postly-api-axyk.onrender.com/api/v1",
     headers: {
         "Content-Type": "application/json"
     },
@@ -13,34 +13,35 @@ export const api = axios.create({
 api.interceptors.response.use(
     (resp)=> resp,
     async (error) => {
+        console.log(error);
+        
+    // if (error.config.url.includes("/auth/refresh") && (error?.response?.status === 401 || error?.response?.status === 403)) {
+    //         window.location  = "/auth/login"
+    //         return Promise.reject(error)
+    //     }
 
-    if (error.config.url.includes("/auth/refresh") && (error?.response?.status === 401 || error?.response?.status === 403)) {
-            window.location  = "/auth/login"
-            return Promise.reject(error)
-        }
+    //     if(error?.response?.status === 422){
+    //         return { error: `ERR_${error?.response?.statusText}_${error?.response?.status}: Validation Error`}          
+    //     }
 
-        if(error?.response?.status === 422){
-            return { error: `ERR_${error?.response?.statusText}_${error?.response?.status}: Validation Error`}          
-        }
-
-        if (error?.response?.status !== 401) {
-            return {error: `ERR_${error?.response?.statusText}_${error?.response?.status}: ${error?.response?.data?.detail}`}
-        }
+    //     if (error?.response?.status !== 401) {
+    //         return {error: `ERR_${error?.response?.statusText}_${error?.response?.status}: ${error?.response?.data?.detail}`}
+    //     }
   
-        if (error?.response?.status === 401 && !error.config._retry) {
+    //     if (error?.response?.status === 401 && !error.config._retry) {
 
-            error.config._retry = true
-            // make request to /auth/refresh
+    //         error.config._retry = true
+    //         // make request to /auth/refresh
 
-            try {
-                await api.get("/auth/refresh")
-                return api(error?.config)
+    //         try {
+    //             await api.get("/auth/refresh")
+    //             return api(error?.config)
 
-            } catch (error) {
-                window.location = "/auth/login"
-                return Promise.reject(error)
-            }
-        }
+    //         } catch (error) {
+    //             window.location = "/auth/login"
+    //             return Promise.reject(error)
+    //         }
+    //     }
     }
 
 )
