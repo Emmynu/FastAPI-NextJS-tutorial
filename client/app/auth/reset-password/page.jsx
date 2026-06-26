@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "../api/auth";
 
-function ResetPassword() {
+export default function ResetPassword() {
     const params =  useSearchParams()
     const token =  params.get("token") 
     const { resetPassword } = useAuth()
@@ -31,8 +31,8 @@ function ResetPassword() {
     
     return ( 
         <main>
-                <h1>Reset Password</h1>
-            <form action="POST" onSubmit={handleSubmit}>
+            <h1>Reset Password</h1>
+            <form  onSubmit={handleSubmit}>
                 <label className="input validator">
                     <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <g
@@ -69,4 +69,3 @@ function ResetPassword() {
      );
 }
 
-export default ResetPassword;
