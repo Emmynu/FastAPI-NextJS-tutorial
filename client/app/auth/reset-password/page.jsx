@@ -2,8 +2,9 @@
 
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "../api/auth";
+import { Suspense } from "react";
 
-export default function ResetPassword() {
+function ResetPasswordForm() {
     const params =  useSearchParams()
     const token =  params.get("token") 
     const { resetPassword } = useAuth()
@@ -69,3 +70,8 @@ export default function ResetPassword() {
      );
 }
 
+export default function ResetPasswordPage() {
+    return <Suspense fallback={<h2>Loading Reset</h2>}>
+        <ResetPasswordForm />
+    </Suspense>
+}
