@@ -5,6 +5,7 @@ import jwt
 from src.config import config
 import uuid
 import logging
+from itsdangerous import URLSafeTimedSerializer
 
 ph = PasswordHasher()
 ACCESS_TOKEN_EXPIRY = 3600
@@ -59,3 +60,13 @@ def decodeToken(token:str) -> dict:
     except jwt.PyJWTError as e:
         logging.exception(e)
         return None
+    
+serializer = URLSafeTimedSerializer(secret_key=config.JWT_SECRET, salt="idnToken")
+
+
+def createIdnToken(data):
+    return serializer.dumps(data)
+
+
+def decodeIdnToken(token):
+    return serializer.loads(token, max_age=900, salt="idnToken")

@@ -72,6 +72,7 @@ export default  function Posts() {
 
     async function handleLogout() {
         await signOut()
+        window.location = "/auth/login"
     }
 
     

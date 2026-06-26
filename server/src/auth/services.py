@@ -1,7 +1,7 @@
 from src.db.models import Users
-from .schema import UserCreateModel
+from .schema import UserCreateModel, ResetPasswordModel
 from sqlalchemy.ext.asyncio.session import AsyncSession
-from sqlmodel import select
+from sqlmodel import select, update
 # from sqlalchemy.orm import selectinload
 from .utilis import generatePasswordHash
 
@@ -33,3 +33,12 @@ class UserService:
         await session.refresh(newUser)
         
         return newUser
+    
+    async def updateUserPassword(self,session: AsyncSession, email:str, passwordData:ResetPasswordModel):
+        newPassword = generatePasswordHash(passwordData.newPassword)
+        
+        statement = await session.exec(update(Users).where(Users.email == email).values(password = newPassword))
+
+        await session.commit()
+
+        return True if statement is not None else False

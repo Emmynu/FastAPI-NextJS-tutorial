@@ -34,6 +34,12 @@ export  function useAuth() {
         
       },
 
+      async resetPassword(data) {
+        const response = await api.post("/auth/reset-password", data)
+
+        return response
+      },
+
       async signOut() {
         setIsLoading(true)
 

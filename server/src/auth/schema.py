@@ -34,3 +34,8 @@ class UserModel(BaseModel):
 
 class EmailsModel(BaseModel):
     address: List[str]
+
+class ResetPasswordModel(BaseModel):
+    newPassword:str
+    token:str
+    # confirmPassword:str
