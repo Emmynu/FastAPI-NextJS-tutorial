@@ -32,8 +32,8 @@ class UserModel(BaseModel):
     post: List[PostModel]
     reviews: List[ReviewsModel]
 
-class EmailsModel(BaseModel):
-    address: List[str]
+class EmailModel(BaseModel):
+    email: str
 
 class ResetPasswordModel(BaseModel):
     newPassword:str

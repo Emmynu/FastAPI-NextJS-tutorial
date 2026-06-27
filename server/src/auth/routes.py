@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, status, HTTPException, Response, Request
-from .schema import UserCreateModel, UserLoginModel, UserModel,EmailsModel, ResetPasswordModel
+from .schema import UserCreateModel, UserLoginModel, UserModel,EmailModel, ResetPasswordModel
 from .services import UserService
 from sqlalchemy.ext.asyncio.session  import AsyncSession
 from src.db.main import session
@@ -106,15 +106,15 @@ async def login(loginData:UserLoginModel,  response:Response, session: AsyncSess
         
 
 @router.post("/forgot-password")
-async def forgotPassword(email:str, session: AsyncSession = Depends(session)):
+async def forgotPassword(emailData:EmailModel, session: AsyncSession = Depends(session)):
 
-    user = await auth.getUser(email, session)
+    user = await auth.getUser(emailData.email, session)
 
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     
     try:
-        token =  createIdnToken(email)
+        token =  createIdnToken(emailData.email)
 
         Link = f"https://fast-api-next-js-tutorial.vercel.app/auth/reset-password?token={token}"
 
@@ -127,9 +127,9 @@ async def forgotPassword(email:str, session: AsyncSession = Depends(session)):
 
         # emails
 
-        result = sendMail(email, Link)
+        result = sendMail(emailData.email, Link)
 
-        return { "msg": "A reset link has been sent to your email", "link": Link, "result": result}
+        return { "msg": "A reset link has been sent to your email", "link": Link, "result": result, "user": user}
     except Exception as e:
         logging.exception(e)
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))

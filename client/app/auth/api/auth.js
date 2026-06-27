@@ -33,6 +33,11 @@ export  function useAuth() {
         return response
         
       },
+      async forgotPassword(data) {
+        const response = await api.post("/auth/forgot-password", data)
+
+        return response
+      },
 
       async resetPassword(data) {
         const response = await api.post("/auth/reset-password", data)
