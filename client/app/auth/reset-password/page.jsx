@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "../api/auth";
 import { Suspense } from "react";
+import { showToast } from "@/app/libs/toast";
 
 function ResetPasswordForm() {
     const params =  useSearchParams()
@@ -26,7 +27,9 @@ function ResetPasswordForm() {
             window.location = "/auth/login"
             
         }
-        
+        else{
+            showToast({type: "error", title: "Oops!...something went wrong", msg:resp?.error})
+        }
         
     }
     
