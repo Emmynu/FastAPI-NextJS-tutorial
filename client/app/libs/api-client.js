@@ -13,10 +13,13 @@ export const api = axios.create({
 api.interceptors.response.use(
     (resp)=> resp,
     async (error) => {
-        console.log(error?.response);
+        // console.log(error?.response);
+
         
     if (error.config.url.includes("/auth/refresh") && (error?.response?.status === 401 || error?.response?.status === 403)) {
-            window.location  = "/auth/login"
+            // window.location  = "/auth/login"
+            console.log(error?.response);
+            
             return Promise.reject(error)
         }
 
@@ -30,15 +33,22 @@ api.interceptors.response.use(
   
         if (error?.response?.status === 401 && !error.config._retry) {
 
+            console.log(error?.response);
+            
+
             error.config._retry = true
-            // make request to /auth/refresh
+            // // make request to /auth/refresh
 
             try {
-                await api.get("/auth/refresh")
-                return api(error?.config)
+                const response = await api.get("/auth/refresh")
+                console.log(response);
+                
+                // return api(error?.config)
 
             } catch (error) {
-                window.location = "/auth/login"
+                // window.location = "/auth/login"
+                console.log(error?.response);
+
                 return Promise.reject(error)
             }
         }

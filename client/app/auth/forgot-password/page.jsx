@@ -2,6 +2,7 @@
 
 import { showToast } from "@/app/libs/toast"
 import { useAuth } from "../api/auth"
+import Link from "next/link"
 
 
 export default function ForgotPassword() {
@@ -17,7 +18,7 @@ export default function ForgotPassword() {
            console.log(resp)
             if (resp?.status === 200){
                 showToast({ type: "success", title: resp?.data?.msg, msg: null})
-                // window.location = "/auth/login"
+                window.location = "/auth/reset-password"
             
         }
         else{
@@ -30,9 +31,9 @@ export default function ForgotPassword() {
 
     }
     return(
-           <main>
-            <h1>Reset Password</h1>
-            <form  onSubmit={handleSubmit}>
+           <main className="m-9">
+            <h1 className="text-xl  font-medium">Reset Password</h1>
+            <form  onSubmit={handleSubmit} className="mt-2">
                  <label className="input  validator">
                         <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <g
@@ -49,6 +50,11 @@ export default function ForgotPassword() {
                         <input type="email" placeholder="mail@site.com" required name="email"/>
                     </label>
                     <div className="validator-hint hidden">Enter valid email address</div>
+                
+                <section className="mt-2 mb-3">
+                    <h2 className="text-sm ">Remember password? <Link href={"/auth/login"} className="italic hover:underline ">Login</Link></h2>
+                </section>
+
                 <button type="submit" className="btn btn-warning ">Submit</button>
         </form>
         </main>

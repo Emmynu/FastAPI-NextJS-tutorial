@@ -2,6 +2,7 @@
 import { showToast } from "@/app/libs/toast"
 import { useAuth } from "../api/auth"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 
 export default function Login() {
@@ -83,6 +84,10 @@ export default function Login() {
                     </p>
                 </section>
 
+
+                <section className="mb-2">
+                   <Link href={"/auth/forgot-password"} className="italic hover:underline text-sm ">Forgot Password?</Link>
+                </section>
 
                 <button className="btn btn-warning " disabled={isLoading}>{isLoading ? <h2><span className="loading loading-spinner loading-sm mx-1"></span>Loading...</h2>: "Continue"}</button>
                 

@@ -3,6 +3,7 @@ import { useAuth } from "../api/auth"
 import { showToast } from "@/app/libs/toast"
 import "../../globals.css"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 
 export default function Register() {
@@ -120,6 +121,10 @@ export default function Register() {
                 Must be more than 8 characters, including
                 <br />At least one number <br />At least one lowercase letter <br />At least one uppercase letter
                 </p>
+                </section>
+
+                <section>
+                    <h2 className="text-sm mb-3">Already have an account? <Link href={"/auth/login"} className="italic hover:underline ">Login</Link></h2>
                 </section>
 
                 <button className="btn btn-warning " disabled={isLoading}>{isLoading ? <h2><span className="loading loading-spinner loading-sm mx-1"></span>Loading...</h2>: "Continue"}</button>

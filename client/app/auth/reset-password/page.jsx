@@ -34,9 +34,9 @@ function ResetPasswordForm() {
     }
     
     return ( 
-        <main>
-            <h1>Reset Password</h1>
-            <form  onSubmit={handleSubmit}>
+        <main className="m-9">
+            <h1 className="text-xl  font-medium">Reset Password</h1>
+            <form  onSubmit={handleSubmit} className="mt-2">
                 <label className="input validator">
                     <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <g
@@ -67,7 +67,7 @@ function ResetPasswordForm() {
                     <br />At least one number <br />At least one lowercase letter <br />At least one uppercase letter
                 </p>
                 <br/>
-                <button type="submit" className="btn btn-warning ">Submit</button>
+                <button type="submit" className="btn btn-warning mt-2">Submit</button>
         </form>
         </main>
      );
