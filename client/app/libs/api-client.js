@@ -13,11 +13,7 @@ export const api = axios.create({
 api.interceptors.response.use(
     (resp)=> resp,
     async (error) => {
-        
-    if (error.config.url.includes("/auth/refresh") && (error?.response?.status === 401 || error?.response?.status === 403)) {
-            window.location  = "/auth/login"
-            return Promise.reject(error)
-        }
+
 
         if(error?.response?.status === 422){
             return { error: `ERR_${error?.response?.statusText}_${error?.response?.status}: Validation Error`}          
@@ -27,21 +23,28 @@ api.interceptors.response.use(
             return {error: `ERR_${error?.response?.statusText}_${error?.response?.status}: ${error?.response?.data?.detail}`}
         }
   
-        if (error?.response?.status === 401 && !error.config._retry) {
+        if (error?.response?.status === 401 ) {
+            if(error.config.url.includes("/auth/login")){
+                return {error: `ERR_${error?.response?.statusText}_${error?.response?.status}: ${error?.response?.data?.detail}`}
+            }
 
-            console.log(error?.response);
-            
+            if(!error.config._retry){
+                error.config._retry = true
+                // make request to /auth/refresh
 
-            error.config._retry = true
-            // make request to /auth/refresh
+                try {
+                    const resp = await api.get("/auth/refresh")   
 
-            try {
-                await api.get("/auth/refresh")            
-                return api(error?.config)
+                    if (resp?.error) {
+                       window.location = "/auth/login"
+                    }
+                    
+                    return api(error?.config)
 
-            } catch (error) {
-                window.location = "/auth/login"
-                return Promise.reject(error)
+                } catch (error) {
+                    window.location = "/auth/login"  
+                    return Promise.reject(error)
+                }
             }
         }
     }
