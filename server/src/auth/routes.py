@@ -214,7 +214,8 @@ async def logout(resp:Response, userDetails = Depends(tokenBearer)):
                 # domain="http://localhost:3000/"
             )
         # res =  await JtiInBlockList(userDetails["jti"])
-        
+            print("logging out user: ", userDetails)
+
             return { "msg": "Logout successful!"}
    except:
        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="An error occured")
