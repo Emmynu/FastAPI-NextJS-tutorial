@@ -18,8 +18,6 @@ export default function ForgotPassword() {
            console.log(resp)
             if (resp?.status === 200){
                 showToast({ type: "success", title: resp?.data?.msg, msg: null})
-                window.location = "/auth/reset-password"
-            
         }
         else{
             showToast({type: "error", title: "Oops!...something went wrong", msg:resp?.error})
