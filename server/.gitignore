@@ -2,3 +2,5 @@ env/
 .env
 __pycache__
 cmd.md
+credentials.json
+token.json

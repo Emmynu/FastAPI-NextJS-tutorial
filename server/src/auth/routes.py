@@ -6,7 +6,7 @@ from src.db.main import session
 from .utilis import createAccessToken, decodeToken, verifyHash, createIdnToken, decodeIdnToken
 from datetime import timedelta
 from src.auth.dependencies import TokenBearer
-from src.mail import create_message, mail
+from src.mail import sendMail
 import logging
 
 
@@ -15,20 +15,20 @@ auth = UserService()
 tokenBearer = TokenBearer() 
 
 
-@router.post("/mail")
-async def sendMailMessage(emails:EmailsModel):
-    email_address = emails.address
-    html = "<h1 style='color:blue'>Welcome to the app </h1>"
+# @router.post("/mail")
+# async def sendMailMessage(emails:EmailsModel):
+#     email_address = emails.address
+#     html = "<h1 style='color:blue'>Welcome to the app </h1>"
 
-    message = create_message(
-        recipients=email_address,
-        subject="WELCOME",
-        body=html
-    )
+#     message = create_message(
+#         recipients=email_address,
+#         subject="WELCOME",
+#         body=html
+#     )
 
-    await mail.send_message(message)
+#     await mail.send_message(message)
 
-    return { "msg": "Email sent successful" }
+#     return { "msg": "Email sent successful" }
 
 
 
@@ -118,24 +118,18 @@ async def forgotPassword(email:str, session: AsyncSession = Depends(session)):
 
         Link = f"https://fast-api-next-js-tutorial.vercel.app/auth/reset-password?token={token}"
 
-        html = f"""
+        # html = f"""
 
-        <h1>Reset Password</h1>
-        <p>Click on this <a href={Link}>Link</a> to reset password</p>
+        # <h1>Reset Password</h1>
+        # <p>Click on this <a href={Link}>Link</a> to reset password</p>
 
-        """
+        # """
 
         # emails
 
-        message = create_message(
-            recipients= [email],
-            subject="Reset Password",
-            body=html
-        )
+        result = sendMail(email, Link)
 
-        await mail.send_message(message)
-
-        return { "msg": "A reset link has been sent to your email"}
+        return { "msg": "A reset link has been sent to your email", "link": Link, "result": result}
     except Exception as e:
         logging.exception(e)
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
