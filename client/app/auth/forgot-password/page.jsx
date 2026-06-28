@@ -3,7 +3,7 @@
 import { showToast } from "@/app/libs/toast"
 import { useAuth } from "../api/auth"
 import Link from "next/link"
-
+import "../auth.css"
 
 export default function ForgotPassword() {
     const { forgotPassword } =  useAuth()

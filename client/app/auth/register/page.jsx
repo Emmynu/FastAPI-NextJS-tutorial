@@ -2,6 +2,7 @@
 import { useAuth } from "../api/auth"
 import { showToast } from "@/app/libs/toast"
 import "../../globals.css"
+import "../auth.css"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 

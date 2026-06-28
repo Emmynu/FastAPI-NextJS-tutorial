@@ -4,6 +4,8 @@ import { useSearchParams } from "next/navigation";
 import { useAuth } from "../api/auth";
 import { Suspense } from "react";
 import { showToast } from "@/app/libs/toast";
+import "../auth.css"
+
 
 function ResetPasswordForm() {
     const params =  useSearchParams()

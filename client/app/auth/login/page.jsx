@@ -3,7 +3,7 @@ import { showToast } from "@/app/libs/toast"
 import { useAuth } from "../api/auth"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-
+import "../auth.css"
 
 export default function Login() {
     const { login, isLoading } = useAuth()

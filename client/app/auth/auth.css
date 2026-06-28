@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+input[type = "text"]{
+   @apply text-black bg-white
+
+}
